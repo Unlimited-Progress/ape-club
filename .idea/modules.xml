@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/jc-club.iml" filepath="$PROJECT_DIR$/.idea/jc-club.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-application/jc-club-application.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-application/jc-club-application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-application/jc-club-application-controller/jc-club-application-controller.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-application/jc-club-application-controller/jc-club-application-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-application/jc-club-application-job/jc-club-application-job.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-application/jc-club-application-job/jc-club-application-job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-application/jc-club-application-mq/jc-club-application-mq.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-application/jc-club-application-mq/jc-club-application-mq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-common/jc-club-common.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-common/jc-club-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-domain/jc-club-domain.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-domain/jc-club-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-infra/jc-club-infra.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-infra/jc-club-infra.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-starter/jc-club-starter.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-starter/jc-club-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-subject.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-subject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jc-club-subject/jc-club-subject-api/jc-club-subject-api.iml" filepath="$PROJECT_DIR$/jc-club-subject/jc-club-subject-api/jc-club-subject-api.iml" />
+    </modules>
+  </component>
+</project>

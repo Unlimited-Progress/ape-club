@@ -1,0 +1,13 @@
+jc:
+  datasource:
+    username: root
+    password: 2003
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: 127.0.0.1
+    port: 3306
+    database: jc-club-init
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url-pattern: /druid/*  # Druid监控页面的URL路径
+      login-username: admin  # 登录Druid监控页面的用户名
+      login-password: 123456  # 登录Druid监控页面的密码

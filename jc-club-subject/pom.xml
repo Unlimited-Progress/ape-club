@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jingdianjichi</groupId>
+    <artifactId>jc-club-subject</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>jc-club-subject-api</module>
+        <module>jc-club-application</module>
+        <module>jc-club-common</module>
+        <module>jc-club-domain</module>
+        <module>jc-club-infra</module>
+        <module>jc-club-starter</module>
+    </modules>
+
+
+
+    <!-- 依赖管理 -->
+    <dependencies>
+        <!-- Spring Boot 依赖 -->
+        <dependency>
+            <!-- groupId: 组织的唯一标识符 -->
+            <groupId>org.springframework.boot</groupId>
+            <!-- artifactId: 项目的唯一标识符 -->
+            <artifactId>spring-boot-dependencies</artifactId>
+            <!-- version: 依赖的版本号 -->
+            <version>2.4.2</version>
+            <!-- type: 依赖的类型，这里是 pom（Project Object Model）类型 -->
+            <type>pom</type>
+            <!-- scope: 依赖的作用范围，这里是导入作用域 -->
+            <scope>import</scope>
+        </dependency>
+
+
+
+    </dependencies>
+
+    <!-- 仓库配置 -->
+    <repositories>
+        <!-- 阿里云 Maven 仓库 -->
+        <repository>
+            <!-- id: 仓库的唯一标识符 -->
+            <id>central</id>
+            <!-- name: 仓库的名称 -->
+            <name>aliyun maven</name>
+            <!-- url: 仓库的 URL -->
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <!-- layout: 仓库布局类型 -->
+            <layout>default</layout>
+            <!-- releases: 发布版本的配置 -->
+            <releases>
+                <!-- enabled: 是否启用发布版本 -->
+                <enabled>true</enabled>
+            </releases>
+            <!-- snapshots: 快照版本的配置 -->
+            <snapshots>
+                <!-- enabled: 是否启用快照版本 -->
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
+</project>
