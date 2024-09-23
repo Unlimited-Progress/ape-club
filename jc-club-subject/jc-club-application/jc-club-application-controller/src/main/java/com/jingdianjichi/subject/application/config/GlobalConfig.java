@@ -8,12 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-
 import java.util.List;
 
 //WebMvcConfigurationSupport处理有关webmvc
 @Configuration
 public class GlobalConfig extends WebMvcConfigurationSupport {
+
+
 
     @Override
     protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

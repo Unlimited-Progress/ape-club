@@ -50,7 +50,10 @@ mybatis:
     #开启驼峰命名
     map-underscore-to-camel-case: true
 
-
+# mp提供的sql日志
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 

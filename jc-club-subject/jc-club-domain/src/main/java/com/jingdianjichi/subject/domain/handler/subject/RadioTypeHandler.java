@@ -9,6 +9,7 @@ import com.jingdianjichi.subject.infra.basic.entity.SubjectMapping;
 import com.jingdianjichi.subject.infra.basic.entity.SubjectRadio;
 import com.jingdianjichi.subject.infra.basic.service.SubjectMappingService;
 import com.jingdianjichi.subject.infra.basic.service.SubjectRadioService;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * 单选策略类
  */
+@Component
 public class RadioTypeHandler implements SubjectTypeHandler{
 
     @Resource

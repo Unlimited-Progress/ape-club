@@ -8,6 +8,7 @@ import com.jingdianjichi.subject.domain.entity.SubjectInfoBO;
 import com.jingdianjichi.subject.domain.entity.SubjectOptionBO;
 import com.jingdianjichi.subject.infra.basic.entity.SubjectJudge;
 import com.jingdianjichi.subject.infra.basic.service.SubjectJudgeService;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * 单选策略类
  */
+@Component
 public class JudgeTypeHandler implements SubjectTypeHandler{
     @Resource
     private SubjectJudgeService subjectJudgeService;

@@ -8,12 +8,14 @@ import com.jingdianjichi.subject.domain.entity.SubjectOptionBO;
 import com.jingdianjichi.subject.infra.basic.entity.SubjectBrief;
 import com.jingdianjichi.subject.infra.basic.service.SubjectBriefService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 /**
  * 单选策略类
  */
+@Component
 public class BriefTypeHandler implements SubjectTypeHandler{
     @Resource
     private SubjectBriefService subjectBriefService;

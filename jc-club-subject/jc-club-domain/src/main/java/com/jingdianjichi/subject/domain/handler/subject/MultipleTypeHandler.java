@@ -8,6 +8,7 @@ import com.jingdianjichi.subject.domain.entity.SubjectInfoBO;
 import com.jingdianjichi.subject.domain.entity.SubjectOptionBO;
 import com.jingdianjichi.subject.infra.basic.entity.SubjectMultiple;
 import com.jingdianjichi.subject.infra.basic.service.SubjectMultipleService;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * 单选策略类
  */
+@Component
 public class MultipleTypeHandler implements SubjectTypeHandler{
 
     @Resource
