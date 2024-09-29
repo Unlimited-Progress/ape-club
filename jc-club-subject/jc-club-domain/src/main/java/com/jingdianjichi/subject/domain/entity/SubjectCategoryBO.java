@@ -38,6 +38,8 @@ public class SubjectCategoryBO implements Serializable {
      */
     private Integer isDeleted;
 
+    private Integer count;
+
 
 
 }

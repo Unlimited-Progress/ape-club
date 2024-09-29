@@ -85,7 +85,7 @@ public class SubjectController {
             SubjectInfoDTO dto = SubjectInfoDTOConverter.INSTANCE.convertBOToDTO(boResult);
             return Result.ok(dto);
         } catch (Exception e) {
-            log.error("SubjectCategoryController.add.error:{}", e.getMessage(), e);
+            log.error("SubjectCategoryController.querySubjectInfo.error:{}", e.getMessage(), e);
             return Result.fail("查询题目详情失败");
         }
     }

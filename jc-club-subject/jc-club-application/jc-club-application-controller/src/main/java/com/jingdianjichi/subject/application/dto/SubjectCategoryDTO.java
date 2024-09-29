@@ -38,6 +38,7 @@ public class SubjectCategoryDTO implements Serializable {
      */
     private Integer isDeleted;
 
+    private Integer count;
 
 
 }

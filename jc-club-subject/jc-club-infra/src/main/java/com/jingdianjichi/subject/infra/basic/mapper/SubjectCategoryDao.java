@@ -77,5 +77,7 @@ public interface SubjectCategoryDao {
      * @return
      */
     List<SubjectCategory> queryCategory(SubjectCategory subjectCategory);
+
+    Integer querySubjectCountById(Long id);
 }
 
