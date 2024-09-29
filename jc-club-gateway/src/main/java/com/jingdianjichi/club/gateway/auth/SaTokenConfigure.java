@@ -23,6 +23,7 @@ public class SaTokenConfigure {
                 .addInclude("/**")
                 // 鉴权方法：每次访问进入
                 .setAuth(obj -> {
+                    //dada
                     System.out.println("-------- 前端访问path：" + SaHolder.getRequest().getRequestPath());
                     // 登录校验 -- 拦截所有路由，并排除/user/doLogin 用于开放登录
 //                    SaRouter.match("/auth/**", "/auth/user/doLogin", r -> StpUtil.checkRole("admin"));
