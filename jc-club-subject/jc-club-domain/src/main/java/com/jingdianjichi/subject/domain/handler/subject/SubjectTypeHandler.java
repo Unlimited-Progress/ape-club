@@ -5,6 +5,9 @@ import com.jingdianjichi.subject.domain.entity.SubjectInfoBO;
 import com.jingdianjichi.subject.domain.entity.SubjectOptionBO;
 import com.jingdianjichi.subject.infra.basic.entity.SubjectInfo;
 
+
+//当每个接口都差不多可以抽象出来时，用工厂加策略的模式
+
 //这个接口要知道我们要操作什么东西，怎么去辨别出来的
 //把四种类型聚合起来（单选，多选）
 public interface SubjectTypeHandler {
