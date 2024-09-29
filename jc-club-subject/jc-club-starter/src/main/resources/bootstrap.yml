@@ -13,4 +13,4 @@ spring:
         file-extension: yaml
       discovery:
         enabled: true
-        server-addr: 117.72.14.166:8848
+        server-addr: 192.168.30.128:8848

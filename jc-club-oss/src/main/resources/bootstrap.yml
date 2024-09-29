@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 117.72.14.166:8848
+        server-addr: 192.168.30.128:8848
         prefix: ${spring.application.name}
         group: DEFAULT_GROUP
         namespace:
