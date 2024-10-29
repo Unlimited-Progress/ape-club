@@ -12,12 +12,16 @@ import com.jingdianjichi.subject.domain.entity.SubjectAnswerBO;
 import com.jingdianjichi.subject.domain.entity.SubjectInfoBO;
 import com.jingdianjichi.subject.domain.service.SubjectInfoDomainService;
 import com.jingdianjichi.subject.infra.basic.entity.SubjectCategory;
+import com.jingdianjichi.subject.infra.basic.entity.SubjectInfoEs;
 import com.jingdianjichi.subject.infra.basic.service.SubjectCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import sun.util.resources.ko.LocaleNames_ko;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,6 +39,9 @@ public class SubjectController {
 
     @Resource
     private SubjectInfoDomainService subjectInfoDomainService;
+
+    @Resource
+    private RocketMQTemplate rocketMQTemplate;
 
 
     /**
@@ -112,5 +119,54 @@ public class SubjectController {
         }
     }
 
+    /**
+     * 全文检索
+     * @return
+     */
+    @PostMapping("/getSubjectPageBySearch")
+    public Result<PageResult<SubjectInfoEs>> getSubjectPageBySearch(@RequestParam SubjectInfoDTO subjectInfoDTO){
+
+        try {
+            if (log.isInfoEnabled()){
+                log.info("SubjectController.getSubjectPageBySearch.dto:{}", JSON.toJSONString(subjectInfoDTO));
+            }
+            Preconditions.checkArgument(StringUtils.isNotBlank(subjectInfoDTO.getKeyWord()),"关键字不能为空");
+            SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDTOToBO(subjectInfoDTO);
+            subjectInfoBO.setPageNo(subjectInfoDTO.getPageNo());
+            subjectInfoBO.setPageSize(subjectInfoDTO.getPageSize());
+            PageResult<SubjectInfoEs> boPageResult = subjectInfoDomainService.getSubjectPageBySearch(subjectInfoBO);
+            return Result.ok(boPageResult);
+        }catch (Exception e) {
+            log.error("SubjectCategoryController.getSubjectPageBySearch.error:{}", e.getMessage(), e);
+            return Result.fail("全文检索失败");
+        }
+    }
+
+    /**
+     * 获取题目贡献榜
+     * @return
+     */
+    @PostMapping("/getContributeList")
+    public Result<List<SubjectInfoDTO>> getContributeList(){
+        try {
+            List<SubjectInfoBO> boList = subjectInfoDomainService.getContributeList();
+            List<SubjectInfoDTO> dtoList = SubjectInfoDTOConverter.INSTANCE.convertBOToDTOList(boList);
+            return Result.ok(dtoList);
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.getContributeList.error:{}",e.getMessage(),e);
+            return Result.fail("获取贡献榜失败");
+        }
+
+    }
+
+
+    /**
+     * 测试mq发送
+     */
+    @PostMapping("/pushmessage")
+    public Result<Boolean> pushmessage(@Param("id") int id){
+        rocketMQTemplate.convertAndSend("test-topic","hello,world"+id);
+        return Result.ok(true);
+    }
 
 }

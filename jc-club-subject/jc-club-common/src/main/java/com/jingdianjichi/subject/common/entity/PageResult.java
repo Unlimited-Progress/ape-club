@@ -20,17 +20,17 @@ public class PageResult<T> implements Serializable {
 
     private Integer totalPages = 0;
 
-    private Integer start = 0;
+    private List<T> result = Collections.emptyList();
+
+    private Integer start = 1;
 
     private Integer end = 0;
 
-    private List<T> result = Collections.EMPTY_LIST;
 
 
-
-    public void setRecords(List<T> result){
-        this.total =total;
-        if (result !=null && result.size() >0){
+    public void setRecords(List<T> result) {
+        this.result = result;
+        if (result != null && result.size() > 0) {
             setTotal(result.size());
         }
     }

@@ -126,6 +126,8 @@
             </if>
         </where>
     </select>
+
+
     <select id="querySubjectCountById" resultType="java.lang.Integer" parameterType="java.lang.Long">
         select count(distinct subject_id)
         from subject_mapping a,

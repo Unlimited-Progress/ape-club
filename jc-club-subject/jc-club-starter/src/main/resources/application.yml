@@ -30,30 +30,62 @@ spring:
             enabled: true  # 启用防火墙过滤器
           config: # 定义配置过滤器
             enabled: true  # 启用配置过滤器
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 192.168.30.128
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: jichi1234
+    # 连接超时时间
+    timeout: 2s
+    lettuce:
+      pool:
+        # 连接池最大连接数
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+#  elasticsearch:
+#    rest:
+#      uris: http://192.168.30.128:9200
+
 publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKDYQUFao8cjnYSA0MU8W4LoD+3xuiG+pao6KyvSIEAeMfKmx4CxiDLjG1M9VMZ7JeHWyWgaVqiE2gUuVx2gjt0CAwEAAQ==
+
+es:
+  cluster:
+    esConfigs[0]:
+      name: 73438a827b55
+      nodes: 192.168.30.128:9200
 
 
 logging:
   config: classpath:log4j2-spring.xml
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    accessToken: default_token
+    executor:
+      appname: jc-club-subjcet
+      address:
+      ip: 127.0.0.1
+      port: 9999
+      logpath: /data/applogs/xxl-job/jobhandler
+      logretentiondays: 30
 
 
-mybatis:
-  #mapper配置文件
-  mapper-locations: classpath:mapper/*.xml
-  #type-aliases-package：用于给Java类型设置一个别名，以便在MyBatis的映射文件中更方便地引用。
-  #这个属性指定了一个包名，MyBatis将会为该包下的所有类创建别名，别名是类名（不包括包名），默认是小写。这可以避免在XML映射文件中使用完全限定类名。
-  #例如，如果你有一个com.sky.entity.User类，并且type-aliases-package设置为com.sky.entity，
-  #则可以在XML映射文件中直接使用User作为别名来代替完全限定名com.sky.entity.User。
-  type-aliases-package: com.sky.entity
-  #  configuration：这是一个占位符，表示MyBatis的详细配置信息将在这里提供。在这个属性下面，你可以添加各种MyBatis的配置元素
-  configuration:
-    #开启驼峰命名
-    map-underscore-to-camel-case: true
 
 # mp提供的sql日志
 #mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 
 
 

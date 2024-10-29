@@ -1,0 +1,7 @@
+# 线程池配置
+thread:
+  pool:
+    corePoolSize: 20
+    maxPoolSize: 100
+    queueCapacity: 5
+    keepAliveSeconds: 40
