@@ -37,7 +37,7 @@ public class CacheUtil<K,V> {
                              Function<String,List<V>> function){
         List<V> resultList = new LinkedList<>();
 //        首先尝试从名为localCache的缓存中获取cacheKey对应的值，将其赋值给content
-//        我们在使用LoadingCache类的适合，builder中会传入一个CacheLoader，这个load方法是用来从别的地方取值保存在内存中的。
+//        我们在使用LoadingCache类的时候，builder中会传入一个CacheLoader，这个load方法是用来从别的地方取值保存在内存中的。
 //        使用get时，如果内存中没有值，会自动调用load方法，如果load方法返回的是null，那么get会抛出异常。
 //        使用getIfPresent时，如果内存中没有值，不会调用load方法，而是直接返回null。
         String content = localCache.getIfPresent(cacheKey);

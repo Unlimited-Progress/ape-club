@@ -4,13 +4,13 @@ spring:
   cloud:
     gateway:
       routes:
-#        - 代表下面的数据是一个list类型的，是一个集合
+#        ”- “代表下面的数据是一个list类型的，是一个集合
         - id: oss
           uri: lb://jc-club-oss-dev
           predicates:
             - Path=/oss/**
           filters:
-#            这个可以让oss/jc-club/test -》 oss/test简化隐藏路径
+#            这个可以让oss/jc-club/test -> oss/test简化隐藏路径
             - StripPrefix=1
         - id: auth
           uri: lb://jc-club-auth-dev

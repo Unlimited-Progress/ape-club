@@ -27,6 +27,9 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.4.2</version>
+
+<!--            用途：<exclusions> 元素用于排除某些依赖项，防止它们被自动引入到项目中。-->
+<!--            作用：在你的例子中，排除了 spring-boot-starter-logging，这样你就可以自定义日志框架。-->
             <exclusions>
                 <exclusion>
                     <artifactId>spring-boot-starter-logging</artifactId>

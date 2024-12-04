@@ -13,6 +13,7 @@ import java.util.Objects;
 
 /**
  * Feign请求拦截器
+ * 两个微服务之间的调用
  */
 @Component
 public class FeignRequstInterceptor implements RequestInterceptor {
@@ -28,7 +29,8 @@ public class FeignRequstInterceptor implements RequestInterceptor {
 
 //        ServletRequestAttributes是RequestAttributes接口的一个实现类，专门用于封装基于Servlet的HTTP请求的相关属性。
 //        它提供了获取HttpServletRequest和HttpServletResponse对象的方法，
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         if (Objects.nonNull(request)){
             String loginId = request.getHeader("loginId");

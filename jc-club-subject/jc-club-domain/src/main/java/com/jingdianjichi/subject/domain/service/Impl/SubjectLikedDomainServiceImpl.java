@@ -5,13 +5,17 @@ import com.jingdianjichi.subject.common.entity.PageResult;
 import com.jingdianjichi.subject.common.enums.IsDeletedFlagEnum;
 import com.jingdianjichi.subject.common.enums.SubjectLikedStatusEnum;
 import com.jingdianjichi.subject.common.util.LoginUtil;
+import com.jingdianjichi.subject.domain.convert.SubjectInfoConverter;
 import com.jingdianjichi.subject.domain.convert.SubjectLikedBOConverter;
+import com.jingdianjichi.subject.domain.entity.SubjectInfoBO;
 import com.jingdianjichi.subject.domain.entity.SubjectLikedBO;
 import com.jingdianjichi.subject.domain.entity.SubjectLikedMessage;
 import com.jingdianjichi.subject.domain.redis.RedisUtil;
 import com.jingdianjichi.subject.domain.service.SubjectLikedDomainService;
 import com.jingdianjichi.subject.infra.basic.entity.SubjectInfo;
+import com.jingdianjichi.subject.infra.basic.entity.SubjectLabel;
 import com.jingdianjichi.subject.infra.basic.entity.SubjectLiked;
+import com.jingdianjichi.subject.infra.basic.entity.SubjectMapping;
 import com.jingdianjichi.subject.infra.basic.service.SubjectInfoService;
 import com.jingdianjichi.subject.infra.basic.service.SubjectLikedService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,17 +24,17 @@ import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.naming.event.NamingListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 题目点赞表 领域service实现了
  *
  * @author jingdianjichi
- * @since 2024-10-14 16:54:58
+ * @since 2024-01-07 23:08:45
  */
 @Service
 @Slf4j
@@ -40,10 +44,13 @@ public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService 
     private SubjectLikedService subjectLikedService;
 
     @Resource
+    private SubjectInfoService subjectInfoService;
+
+    @Resource
     private RedisUtil redisUtil;
 
     @Resource
-    private SubjectInfoService subjectInfoService;
+    private RocketMQTemplate rocketMQTemplate;
 
     private static final String SUBJECT_LIKED_KEY = "subject.liked";
 
@@ -51,19 +58,14 @@ public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService 
 
     private static final String SUBJECT_LIKED_DETAIL_KEY = "subject.liked.detail";
 
-    @Resource
-    private RocketMQTemplate rocketMQTemplate;
-
     @Override
     public void add(SubjectLikedBO subjectLikedBO) {
         Long subjectId = subjectLikedBO.getSubjectId();
         String likeUserId = subjectLikedBO.getLikeUserId();
         Integer status = subjectLikedBO.getStatus();
-//        String hashKey = buildSubjectLikedKey(String.valueOf(subjectId), likeUserId);
-        //设置点赞状态
-//        redisUtil.putHash(SUBJECT_LIKED_KEY,hashKey,status);
+//        String hashKey = buildSubjectLikedKey(subjectId.toString(), likeUserId);
+//        redisUtil.putHash(SUBJECT_LIKED_KEY, hashKey, status);
 
-        //基于rocketmq来实现点赞
         SubjectLikedMessage subjectLikedMessage = new SubjectLikedMessage();
         subjectLikedMessage.setSubjectId(subjectId);
         subjectLikedMessage.setLikeUserId(likeUserId);
@@ -71,30 +73,20 @@ public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService 
         rocketMQTemplate.convertAndSend("subject-liked", JSON.toJSONString(subjectLikedMessage));
 
 
-        String detailKey = SUBJECT_LIKED_DETAIL_KEY+"."+subjectId+"."+likeUserId;
-        String countKey = SUBJECT_LIKED_COUNT_KEY+"."+subjectId;
-        if (SubjectLikedStatusEnum.LIKED.getCode() == status){
-            //如果点赞，数量加1
-            redisUtil.increment(countKey,1);
-            //设置点赞人是否点过赞
-            redisUtil.set(detailKey,"1");
-        }else {
+
+        String detailKey = SUBJECT_LIKED_DETAIL_KEY + "." + subjectId + "." + likeUserId;
+        String countKey = SUBJECT_LIKED_COUNT_KEY + "." + subjectId;
+        if (SubjectLikedStatusEnum.LIKED.getCode() == status) {
+            redisUtil.increment(countKey, 1);
+            redisUtil.set(detailKey, "1");
+        } else {
             Integer count = redisUtil.getInt(countKey);
-            if (Objects.isNull(count) || count<=0){
+            if (Objects.isNull(count) || count <= 0) {
                 return;
             }
-            redisUtil.increment(countKey,-1);
+            redisUtil.increment(countKey, -1);
             redisUtil.del(detailKey);
         }
-
-    }
-    private String buildSubjectLikedKey(String subjectId, String userId) {
-        return subjectId + ":" + userId;
-    }
-    @Override
-    public Boolean update(SubjectLikedBO subjectLikedBO) {
-        SubjectLiked subjectLiked = SubjectLikedBOConverter.INSTANCE.convertBOToEntity(subjectLikedBO);
-        return subjectLikedService.update(subjectLiked) > 0;
     }
 
     @Override
@@ -113,6 +105,16 @@ public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService 
         return redisUtil.getInt(countKey);
     }
 
+    private String buildSubjectLikedKey(String subjectId, String userId) {
+        return subjectId + ":" + userId;
+    }
+
+    @Override
+    public Boolean update(SubjectLikedBO subjectLikedBO) {
+        SubjectLiked subjectLiked = SubjectLikedBOConverter.INSTANCE.convertBOToEntity(subjectLikedBO);
+        return subjectLikedService.update(subjectLiked) > 0;
+    }
+
     @Override
     public Boolean delete(SubjectLikedBO subjectLikedBO) {
         SubjectLiked subjectLiked = new SubjectLiked();
@@ -121,31 +123,37 @@ public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService 
         return subjectLikedService.update(subjectLiked) > 0;
     }
 
+    /**
+     * 同步点赞数据
+     */
     @Override
     public void syncLiked() {
         Map<Object, Object> subjectLikedMap = redisUtil.getHashAndDelete(SUBJECT_LIKED_KEY);
-        if (log.isInfoEnabled()){
+        if (log.isInfoEnabled()) {
             log.info("syncLiked.subjectLikedMap:{}", JSON.toJSONString(subjectLikedMap));
         }
-        if (MapUtils.isEmpty(subjectLikedMap)){
+        if (MapUtils.isEmpty(subjectLikedMap)) {
             return;
         }
         //批量同步到数据库
         List<SubjectLiked> subjectLikedList = new LinkedList<>();
-        subjectLikedMap.forEach((key,value)->{
+        subjectLikedMap.forEach((key, val) -> {
             SubjectLiked subjectLiked = new SubjectLiked();
             String[] keyArr = key.toString().split(":");
-            String subjectId =  keyArr[0];
-            String likedUser =  keyArr[1];
+            String subjectId = keyArr[0];
+            String likedUser = keyArr[1];
             subjectLiked.setSubjectId(Long.valueOf(subjectId));
             subjectLiked.setLikeUserId(likedUser);
-            subjectLiked.setStatus(Integer.valueOf(value.toString()));
+            subjectLiked.setStatus(Integer.valueOf(val.toString()));
             subjectLiked.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
             subjectLikedList.add(subjectLiked);
         });
         subjectLikedService.batchInsertOrUpdate(subjectLikedList);
     }
 
+    /**
+     * 查询我的点赞列表
+     */
     @Override
     public PageResult<SubjectLikedBO> getSubjectLikedPage(SubjectLikedBO subjectLikedBO) {
         PageResult<SubjectLikedBO> pageResult = new PageResult<>();
@@ -169,7 +177,6 @@ public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService 
         pageResult.setTotal(count);
         return pageResult;
     }
-
 
     @Override
     public void syncLikedByMsg(SubjectLikedBO subjectLikedBO) {

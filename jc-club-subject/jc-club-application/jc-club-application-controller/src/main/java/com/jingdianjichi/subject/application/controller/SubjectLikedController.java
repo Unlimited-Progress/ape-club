@@ -10,7 +10,6 @@ import com.jingdianjichi.subject.common.util.LoginUtil;
 import com.jingdianjichi.subject.domain.entity.SubjectLikedBO;
 import com.jingdianjichi.subject.domain.service.SubjectLikedDomainService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ import javax.annotation.Resource;
  * 题目点赞表 controller
  *
  * @author jingdianjichi
- * @since 2024-10-14 16:54:58
+ * @since 2024-01-07 23:08:45
  */
 @RestController
 @RequestMapping("/subjectLiked/")
@@ -43,10 +42,10 @@ public class SubjectLikedController {
                 log.info("SubjectLikedController.add.dto:{}", JSON.toJSONString(subjectLikedDTO));
             }
             Preconditions.checkNotNull(subjectLikedDTO.getSubjectId(), "题目id不能为空");
-            Preconditions.checkNotNull(subjectLikedDTO.getStatus(), "点赞状态 1点赞 0不点赞不能为空");
+            Preconditions.checkNotNull(subjectLikedDTO.getStatus(), "点赞状态不能为空");
             String loginId = LoginUtil.getLoginId();
             subjectLikedDTO.setLikeUserId(loginId);
-            Preconditions.checkNotNull(subjectLikedDTO.getLikeUserId(),"点赞人不能为空");
+            Preconditions.checkNotNull(subjectLikedDTO.getLikeUserId(), "点赞人不能为空");
             SubjectLikedBO SubjectLikedBO = SubjectLikedDTOConverter.INSTANCE.convertDTOToBO(subjectLikedDTO);
             subjectLikedDomainService.add(SubjectLikedBO);
             return Result.ok(true);
@@ -56,6 +55,7 @@ public class SubjectLikedController {
         }
 
     }
+
 
     /**
      * 查询我的点赞列表
@@ -76,8 +76,6 @@ public class SubjectLikedController {
             return Result.fail("分页查询我的点赞失败");
         }
     }
-
-
 
     /**
      * 修改题目点赞表

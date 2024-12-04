@@ -41,6 +41,7 @@ public class SubjectController {
     private SubjectInfoDomainService subjectInfoDomainService;
 
     @Resource
+//    用于发送消息到 RocketMQ 消息队列
     private RocketMQTemplate rocketMQTemplate;
 
 

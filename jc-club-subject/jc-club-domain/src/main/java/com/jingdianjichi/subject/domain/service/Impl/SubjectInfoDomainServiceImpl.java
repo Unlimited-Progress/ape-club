@@ -102,7 +102,7 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         });
         subjectMappingService.batchInsert(mappingList);
 
-        //同步到es
+        //同步到Elasticsearch 可以快速地存储、搜索和分析大量的数据
         SubjectInfoEs subjectInfoEs = new SubjectInfoEs();
         subjectInfoEs.setDocId(new IdWorkerUtil(1, 1, 1).nextId());
         subjectInfoEs.setSubjectId(subjectInfo.getId());
@@ -122,12 +122,16 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         redisUtil.addScore(RANK_KEY, LoginUtil.getLoginId(), 1);
     }
 
+    /**
+     * 查询题目列表
+     */
     @Override
     public PageResult<SubjectInfoBO> getSubjectPage(SubjectInfoBO subjectInfoBO) {
         PageResult<SubjectInfoBO> subjectInfoBOPageResult = new PageResult<>();
 
         subjectInfoBOPageResult.setPageNo(subjectInfoBO.getPageNo());
         subjectInfoBOPageResult.setPageSize(subjectInfoBO.getPageSize());
+
         int start = (subjectInfoBO.getPageNo() - 1) * subjectInfoBO.getPageSize();
         SubjectInfo subjectInfo = SubjectInfoConverter.INSTANCE.convertBoToInfo(subjectInfoBO);
         int count = subjectInfoService.countByCondition(subjectInfo, subjectInfoBO.getLabelId(), subjectInfoBO.getCategoryId());
@@ -190,11 +194,15 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         subjectInfoBO1.setLiked(subjectLikedDomainService.isLiked(subjectInfoBO.getId().toString(), LoginUtil.getLoginId()));
         subjectInfoBO1.setLikedCount(subjectLikedDomainService.getLikedCount(subjectInfoBO.getId().toString()));
 
-        assembleSubjectCursor(subjectInfo,subjectInfoBO1);
+        //设置游标，根据输入对象中的条件查询下一个和上一个主题的 ID，并将这些 ID 设置到输出对象中
+        assembleSubjectCursor(subjectInfoBO,subjectInfoBO1);
         return subjectInfoBO;
     }
 
-
+    /**
+     * 全文检索
+     * @return
+     */
     @Override
     public PageResult<SubjectInfoEs> getSubjectPageBySearch(SubjectInfoBO subjectInfoBO) {
         SubjectInfoEs subjectInfoEs = new SubjectInfoEs();

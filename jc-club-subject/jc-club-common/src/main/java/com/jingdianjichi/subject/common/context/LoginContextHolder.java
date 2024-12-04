@@ -1,6 +1,6 @@
 package com.jingdianjichi.subject.common.context;
 
-import java.rmi.MarshalledObject;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;

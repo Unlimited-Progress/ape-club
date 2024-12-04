@@ -20,6 +20,8 @@ import java.util.*;
  */
 @Component
 @Slf4j
+//@Intercepts：用于标记一个类是一个拦截器，并指定该拦截器要拦截的方法。
+//@Signature：用于定义要拦截的具体方法，包括方法所属的类、方法名和参数类型。
 @Intercepts({@Signature(type = Executor.class, method = "update", args = {
         MappedStatement.class, Object.class
 })})

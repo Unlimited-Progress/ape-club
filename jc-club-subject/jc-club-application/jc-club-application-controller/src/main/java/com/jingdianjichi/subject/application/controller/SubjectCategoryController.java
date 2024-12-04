@@ -35,8 +35,8 @@ public class SubjectCategoryController {
     @PostMapping("/add")
     public Result<Boolean> add(@RequestBody SubjectCategoryDTO subjectCategoryDTO){
         try {
-            //log.isInfoEnabled()是因为在高并发的场景下，会先把json序列化执行一遍
-            //如果先执行json序列化，即使不打log.info也会先执行一遍json序列化，耗性能，加了判断就避免了
+            //如果没有 if (log.isInfoEnabled()) 判断，即使日志级别不是 INFO，
+            // 也会执行 JSON.toJSONString(subjectCategoryDTO)，这会导致不必要的性能开销。
             if (log.isInfoEnabled()){
                 log.info("SubjectCategoryController.add.dto:{}", JSON.toJSONString(subjectCategoryDTO));
             }
@@ -60,7 +60,6 @@ public class SubjectCategoryController {
         try {
             if (log.isInfoEnabled()) {
                 log.info("SubjectCategoryController.queryPrimaryCategory.DTO:",JSON.toJSONString(subjectCategoryDTO));
-
             }
             SubjectCategoryBO subjectCategoryBO = SubjectCategoryDTOConverter.INSTANCE.convertDtoToCategoryBO(subjectCategoryDTO);
             List<SubjectCategoryBO> subjectCategoryBOList = subjectCategoryDomainService.queryCategory(subjectCategoryBO);
@@ -76,6 +75,7 @@ public class SubjectCategoryController {
     /**
      * 根据id查询二级分类
      */
+    @PostMapping("/queryCategoryByPrimary")
     public Result<List<SubjectCategoryDTO>> queryCategoryByPrimary(@RequestBody SubjectCategoryDTO subjectCategoryDTO){
 
         try {

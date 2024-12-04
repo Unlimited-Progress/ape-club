@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
  * 题目点赞表 dto转换器
  *
  * @author jingdianjichi
- * @since 2024-10-14 16:54:58
+ * @since 2024-11-11 17:11:15
  */
 @Mapper
 public interface SubjectLikedDTOConverter {

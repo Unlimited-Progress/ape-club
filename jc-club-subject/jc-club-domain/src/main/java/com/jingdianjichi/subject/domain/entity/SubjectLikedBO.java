@@ -10,7 +10,7 @@ import java.util.Date;
  * 题目点赞表 bo
  *
  * @author jingdianjichi
- * @since 2024-10-14 16:54:58
+ * @since 2024-01-07 23:08:45
  */
 @Data
 public class SubjectLikedBO extends PageInfo implements Serializable {
@@ -24,7 +24,6 @@ public class SubjectLikedBO extends PageInfo implements Serializable {
      * 题目id
      */
     private Long subjectId;
-
 
     /**
      * 题目名称
@@ -62,7 +61,7 @@ public class SubjectLikedBO extends PageInfo implements Serializable {
     private Date updateTime;
 
     /**
-     * 
+     *
      */
     private Integer isDeleted;
 

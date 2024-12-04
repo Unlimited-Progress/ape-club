@@ -26,6 +26,7 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
 
     //serverWebExchange处理关于request这种，throwable是网关截取到的异常
     @Override
+//    Mono<Void> 常用于表示那些只关注操作完成与否、而不需要处理返回值的场景。
     public Mono<Void> handle(ServerWebExchange serverWebExchange, Throwable throwable) {
         ServerHttpRequest request = serverWebExchange.getRequest();
         ServerHttpResponse response = serverWebExchange.getResponse();

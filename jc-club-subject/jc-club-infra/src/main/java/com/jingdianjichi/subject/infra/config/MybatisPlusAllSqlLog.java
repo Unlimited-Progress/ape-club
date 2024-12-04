@@ -2,6 +2,7 @@ package com.jingdianjichi.subject.infra.config;
 
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMapping;
@@ -22,6 +23,13 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 
 public class MybatisPlusAllSqlLog implements InnerInterceptor {
+//    LoggerFactory：SLF4J 提供的工厂类，用于创建 Logger 实例。
+//    getLogger("sys-sql")：创建一个名为 sys-sql 的 Logger 实例。
+//    这里的 "sys-sql" 是一个字符串，表示日志的名称或类别
+//    日志分类：通过指定一个特定的名称（如 "sys-sql"），可以将不同类型的日志分开管理。
+//    例如，你可以将所有的 SQL 相关的日志都记录到sys-sql 这个类别下，便于后续的日志分析和管理。
+//    日志配置：在日志配置文件（如 logback.xml 或 log4j.properties）中，
+//    可以根据这个名称配置不同的日志级别、输出格式和输出目标
     public static final Logger log = LoggerFactory.getLogger("sys-sql");
 
     @Override
@@ -35,6 +43,7 @@ public class MybatisPlusAllSqlLog implements InnerInterceptor {
         logInfo(boundSql, ms, parameter);
     }
 
+//    记录参数、SQL ID 和完整的 SQL 语句。
     private static void logInfo(BoundSql boundSql, MappedStatement ms, Object parameter) {
         try {
             log.info("parameter = " + parameter);

@@ -8,7 +8,7 @@ import com.jingdianjichi.subject.domain.entity.SubjectLikedBO;
  * 题目点赞表 领域service
  *
  * @author jingdianjichi
- * @since 2024-10-14 16:54:58
+ * @since 2024-01-07 23:08:45
  */
 public interface SubjectLikedDomainService {
 
@@ -27,8 +27,6 @@ public interface SubjectLikedDomainService {
      */
     Integer getLikedCount(String subjectId);
 
-
-
     /**
      * 更新 题目点赞表 信息
      */
@@ -45,11 +43,10 @@ public interface SubjectLikedDomainService {
     void syncLiked();
 
     /**
-     *查询点赞列表
-     * @param subjectLikedBO
-     * @return
+     * 查询我的点赞列表
      */
     PageResult<SubjectLikedBO> getSubjectLikedPage(SubjectLikedBO subjectLikedBO);
 
     void syncLikedByMsg(SubjectLikedBO subjectLikedBO);
+
 }

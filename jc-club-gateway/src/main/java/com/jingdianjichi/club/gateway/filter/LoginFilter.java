@@ -20,6 +20,7 @@ public class LoginFilter implements GlobalFilter {
 
     @Override
     @SneakyThrows
+//    Mono<Void> 常用于表示那些只关注操作完成与否、而不需要处理返回值的场景。
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         // 创建一个新的请求构建器，用于修改请求
@@ -27,16 +28,26 @@ public class LoginFilter implements GlobalFilter {
         String url = request.getURI().getPath();
         log.info("LoginFilter.filter.url:{}", url);
         if (url.equals("/user/doLogin")) {
+//            继续执行过滤器链
             chain.filter(exchange);
         }
-        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-        log.info("LoginFilter.filter.url:{}", new Gson().toJson(tokenInfo));
-        String loginId = (String) tokenInfo.getLoginId();
-        if (StringUtils.isEmpty(loginId)) {
-            throw new Exception("未获取到用户信息");
+
+        try {
+            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            log.info("LoginFilter.filter.url:{}", new Gson().toJson(tokenInfo));
+            if (tokenInfo == null || StringUtils.isEmpty(tokenInfo.getLoginId())) {
+                // 返回未授权响应，而不是抛出异常
+                return Mono.error(new RuntimeException("未获取到用户信息"));
+            }
+
+            String loginId = (String) tokenInfo.getLoginId();
+
+            mutate.header("loginId", loginId);
+            // 使用修改后的请求继续过滤链的处理
+            return chain.filter(exchange.mutate().request(mutate.build()).build());
+        } catch (Exception e) {
+            log.error("Error in LoginFilter", e);
+            return Mono.error(e);
         }
-        mutate.header("loginId", loginId);
-        // 使用修改后的请求继续过滤链的处理
-        return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 }

@@ -96,13 +96,17 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
         return count > 0;
     }
 
+    /**
+     * 查询分类标签及一致性
+     */
     @Override
     @SneakyThrows
     public List<SubjectCategoryBO> queryCategoryAndLabel(SubjectCategoryBO subjectCategoryBO) {
         Long id = subjectCategoryBO.getId();
         String cacheKey = "categoryAndLabel"+ id;
 //        (key) -> getSubjectCategoryBOS(id)，我们可以将一个函数作为参数传递给另一个函数cacheUtil.getResult()
-        List<SubjectCategoryBO> subjectCategoryBOS = cacheUtil.getResult(cacheKey, SubjectCategoryBO.class, (key) -> getSubjectCategoryBOS(id));
+        List<SubjectCategoryBO> subjectCategoryBOS = cacheUtil.getResult(cacheKey, SubjectCategoryBO.class,
+                (key) -> getSubjectCategoryBOS(id));
         return subjectCategoryBOS;
     }
 
@@ -122,10 +126,16 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
         List<FutureTask<Map<Long,List<SubjectLabelBO>>>> futureTaskList = new LinkedList<>();
         //线程池并发调用
         Map<Long,List<SubjectLabelBO>> map = new HashMap<>();
+
+
 //        将boList中的每个类别映射为一个CompletableFuture对象。
 //        这些CompletableFuture对象将在labelThreadPool线程池中异步执行getSubjectLabelBOS方法，
-//        该方法接收一个类别参数并返回一个包含类别ID和标签信息列表的Map
-        List<CompletableFuture<Map<Long, List<SubjectLabelBO>>>> completableFutureList = boList.stream().map(category ->
+//        该方法接收一个类别参数并返回一个key是Long类型的categoryId和标签信息列表的Map
+        List<CompletableFuture<Map<Long, List<SubjectLabelBO>>>> completableFutureList = boList.
+                stream().
+                map(category ->
+//        CompletableFuture.supplyAsync：创建一个新的 CompletableFuture，并在指定的线程池中异步执行提供的供应商函数。
+//        () -> getSubjectLabelBOS(category)：这是一个 lambda 表达式，表示异步执行的任务。
                         CompletableFuture.supplyAsync(() -> getSubjectLabelBOS(category), labelThreadPool))
                 .collect(Collectors.toList());
 
@@ -144,7 +154,7 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
 //        //把原有的单体的同步的，变成一个向线程池里提交任务的一个过程
 //        boList.forEach(bo ->{
 //        创建FutureTask的对象（作用管理多线程运行的结果）
-//            FutureTask futureTask = new FutureTask<>(()->
+//            FutureTask<Map<Long,List<SubjectLabelBO>>>  futureTask = new FutureTask<>(()->
 //                    getSubjectLabelBOS(bo) );
 //            futureTaskList.add(futureTask);
 //            labelThreadPool.getLabelThreadPool().submit(futureTask);
@@ -174,7 +184,8 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
             return null;
         }
 
-        List<Long> labelIdList = mappingList.stream().map(SubjectMapping::getLabelId).collect(Collectors.toList());
+        List<Long> labelIdList = mappingList.stream()
+                .map(SubjectMapping::getLabelId).collect(Collectors.toList());
         List<SubjectLabel> subjectLabels = subjectLabelService.batchQueryById(labelIdList);
         List<SubjectLabelBO> labelBOList = new LinkedList<>();
         subjectLabels.forEach(label->{

@@ -1,5 +1,6 @@
 package com.jingdianjichi.subject.common.util;
 
+//是一个用于生成唯一 ID 的工具类
 public class IdWorkerUtil {
 
     private long workerId;

@@ -10,7 +10,7 @@ import com.jingdianjichi.subject.infra.basic.es.EsSourceData;
 import com.jingdianjichi.subject.infra.basic.service.SubjectEsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.ObjectUtils;
+
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.index.query.BoolQueryBuilder;

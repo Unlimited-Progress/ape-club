@@ -8,7 +8,7 @@ import java.util.List;
  * 题目点赞表 表服务接口
  *
  * @author jingdianjichi
- * @since 2024-10-14 16:54:58
+ * @since 2024-01-07 23:08:45
  */
 public interface SubjectLikedService {
 
@@ -49,13 +49,12 @@ public interface SubjectLikedService {
      */
     SubjectLiked queryByCondition(SubjectLiked subjectLiked);
 
-    /**
-     * 批量同步点赞数据
-     * @param subjectLikedList
-     */
-    void batchInsertOrUpdate(List<SubjectLiked> subjectLikedList);
+    void batchInsert(List<SubjectLiked> subjectLikedList);
 
     int countByCondition(SubjectLiked subjectLiked);
 
     List<SubjectLiked> queryPage(SubjectLiked subjectLiked, int start, Integer pageSize);
+
+    void batchInsertOrUpdate(List<SubjectLiked> subjectLikedList);
+
 }
