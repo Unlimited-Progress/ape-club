@@ -1,0 +1,65 @@
+RocketMQ
+如果你要把 RocketMQ 部署在 192.168.200.128 并让本地项目接入，按这套最省事。建议先用 4.9.8，和你现在 rocketmq-spring-boot-starter 2.1.1 更稳。
+
+在 192.168.200.128 上准备目录和 broker 配置。
+
+sudo mkdir -p /data/rocketmq/{namesrv/logs,broker/logs,broker/store,conf}
+
+sudo tee /data/rocketmq/conf/broker.conf > /dev/null <<'EOF'
+brokerClusterName=ape-club-cluster
+brokerName=broker-a
+brokerId=0
+brokerIP1=192.168.200.128
+listenPort=10911
+namesrvAddr=192.168.200.128:9876
+autoCreateTopicEnable=true
+brokerRole=ASYNC_MASTER
+flushDiskType=ASYNC_FLUSH
+fileReservedTime=48
+deleteWhen=04
+EOF
+
+拉镜像并启动 NameServer/Broker。
+
+docker pull apache/rocketmq:4.9.8
+docker network create rocketmq
+
+docker run -d \
+  --name rmqnamesrv \
+  --restart unless-stopped \
+  --network rocketmq \
+  -p 9876:9876 \
+  -v /data/rocketmq/namesrv/logs:/home/rocketmq/logs \
+  apache/rocketmq:4.9.8 sh mqnamesrv
+
+docker run -d \
+  --name rmqbroker \
+  --restart unless-stopped \
+  --network rocketmq \
+  -p 10909:10909 \
+  -p 10911:10911 \
+  -p 10912:10912 \
+  -v /data/rocketmq/broker/logs:/home/rocketmq/logs \
+  -v /data/rocketmq/broker/store:/home/rocketmq/store \
+  -v /data/rocketmq/conf/broker.conf:/home/rocketmq/rocketmq-4.9.8/conf/broker.conf \
+  apache/rocketmq:4.9.8 \
+  sh mqbroker -n 192.168.200.128:9876 -c /home/rocketmq/rocketmq-4.9.8/conf/broker.conf
+
+验证服务。
+
+docker logs rmqnamesrv --tail 50
+docker logs rmqbroker --tail 50
+docker exec rmqbroker sh mqadmin clusterList -n 192.168.200.128:9876
+
+本地项目接入。你现在 subject 模块的 RocketMQ 配置还是注释的。application.yml (line 83)
+在 ape-club-subject/ape-club-starter/src/main/resources/application-dev.yml 里加：
+
+rocketmq:
+  name-server: 192.168.200.128:9876
+  producer:
+    group: ape-club-subject-producer
+
+本地联通性先测一下。
+nc -vz 192.168.200.128 9876
+nc -vz 192.168.200.128 10911
+如果连不上，先查防火墙和 brokerIP1。brokerIP1 不配对时，最常见现象是本地能连 NameServer，但消费者/生产者拿到的是容器内网 IP。

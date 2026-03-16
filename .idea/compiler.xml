@@ -7,70 +7,60 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="easy-gen-code-spring-boot-starter" />
         <module name="asyncTool" />
         <module name="jc-club-auth-application-job" />
-        <module name="jc-club-application-controller" />
         <module name="jc-club-practice-server" />
-        <module name="jc-club-auth-api" />
-        <module name="jc-club-practice-api" />
+        <module name="ape-club-gateway" />
         <module name="jc-club-auth-application-mq" />
         <module name="jc-club-circle-server" />
         <module name="jc-club-starter" />
-        <module name="jc-club-auth-common" />
         <module name="jc-club-common" />
-        <module name="jc-club-auth-application-controller" />
+        <module name="ape-club-circle-api" />
+        <module name="ape-club-auth-common" />
+        <module name="ape-club-auth-application-mq" />
         <module name="jc-club-application-mq" />
-        <module name="jc-club-auth-infra" />
+        <module name="ape-club-common" />
         <module name="jc-club-wx" />
         <module name="jc-club-gateway" />
         <module name="jc-club-domain" />
-        <module name="jc-club-auth-starter" />
         <module name="jc-club-auth-domain" />
-        <module name="jc-club-subject-api" />
+        <module name="ape-club-infra" />
         <module name="jc-club-infra" />
         <module name="jc-club-application-job" />
-        <module name="jc-club-circle-api" />
+        <module name="ape-club-circle-server" />
+        <module name="ape-club-practice-server" />
         <module name="jc-club-gen" />
+        <module name="ape-club-practice-api" />
+        <module name="ape-club-application-controller" />
+        <module name="easy-gen-code-spring-boot-starter" />
+        <module name="ape-club-subject-api" />
+        <module name="jc-club-application-controller" />
+        <module name="jc-club-practice-api" />
+        <module name="jc-club-auth-api" />
+        <module name="ape-club-auth-starter" />
+        <module name="jc-club-auth-common" />
+        <module name="ape-club-auth-application-controller" />
+        <module name="ape-club-application-job" />
+        <module name="ape-club-auth-infra" />
+        <module name="jc-club-auth-application-controller" />
+        <module name="ape-club-application-mq" />
+        <module name="ape-club-auth-application-job" />
+        <module name="jc-club-auth-infra" />
+        <module name="ape-club-auth-api" />
+        <module name="ape-club-auth-domain" />
+        <module name="jc-club-auth-starter" />
+        <module name="ape-club-domain" />
+        <module name="jc-club-subject-api" />
+        <module name="ape-club-wx" />
+        <module name="ape-club-starter" />
+        <module name="jc-club-circle-api" />
+        <module name="ape-club-oss" />
         <module name="jc-club-oss" />
         <module name="jc-application-job" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
-      <module name="asyncTool" target="1.8" />
-      <module name="easy-gen-code-spring-boot-starter" target="8" />
       <module name="jc-application-job" target="1.5" />
-      <module name="jc-club-application" target="1.5" />
-      <module name="jc-club-application-controller" target="1.8" />
-      <module name="jc-club-application-job" target="1.8" />
-      <module name="jc-club-application-mq" target="1.8" />
-      <module name="jc-club-auth" target="8" />
-      <module name="jc-club-auth-api" target="8" />
-      <module name="jc-club-auth-application" target="8" />
-      <module name="jc-club-auth-application-controller" target="8" />
-      <module name="jc-club-auth-application-job" target="8" />
-      <module name="jc-club-auth-application-mq" target="8" />
-      <module name="jc-club-auth-common" target="8" />
-      <module name="jc-club-auth-domain" target="8" />
-      <module name="jc-club-auth-infra" target="8" />
-      <module name="jc-club-auth-starter" target="8" />
-      <module name="jc-club-circle" target="8" />
-      <module name="jc-club-circle-api" target="8" />
-      <module name="jc-club-circle-server" target="8" />
-      <module name="jc-club-common" target="1.8" />
-      <module name="jc-club-common-starter" target="8" />
-      <module name="jc-club-domain" target="8" />
-      <module name="jc-club-gateway" target="8" />
-      <module name="jc-club-gen" target="8" />
-      <module name="jc-club-infra" target="1.8" />
-      <module name="jc-club-oss" target="8" />
-      <module name="jc-club-practice" target="8" />
-      <module name="jc-club-practice-api" target="8" />
-      <module name="jc-club-practice-server" target="8" />
-      <module name="jc-club-starter" target="8" />
-      <module name="jc-club-subject" target="1.5" />
-      <module name="jc-club-subject-api" target="1.8" />
-      <module name="jc-club-wx" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

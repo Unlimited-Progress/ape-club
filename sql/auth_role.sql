@@ -1,0 +1,2 @@
+INSERT INTO `auth_role` (`id`, `role_name`, `role_key`, `created_by`, `created_time`, `update_by`, `update_time`, `is_deleted`) VALUES (1, '管理员', 'admin_user', 'oYA4HtwGJEsLio6pGrhx5Hzv9XD0', '2024-02-28 03:20:44', '', '2023-11-12 16:16:07', 0);
+INSERT INTO `auth_role` (`id`, `role_name`, `role_key`, `created_by`, `created_time`, `update_by`, `update_time`, `is_deleted`) VALUES (2, '普通用户', 'normal_user', 'oYA4HtwGJEsLio6pGrhx5Hzv9XD0', '2024-02-28 03:20:44', '', '2023-11-12 16:16:10', 0);

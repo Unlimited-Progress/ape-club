@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -17,6 +18,16 @@
         <option value="$PROJECT_DIR$/jc-club-practice/pom.xml" />
         <option value="$PROJECT_DIR$/asyncTool/pom.xml" />
         <option value="$PROJECT_DIR$/jc-club-circle/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-auth/ape-club-auth-application/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-circle/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-common-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-gen/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-oss/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-practice/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-subject/pom.xml" />
+        <option value="$PROJECT_DIR$/ape-club-wx/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -25,7 +36,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="corretto-1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="corretto-11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

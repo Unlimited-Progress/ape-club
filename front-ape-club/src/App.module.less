@@ -1,0 +1,50 @@
+// ============================================
+// App 主容器样式
+// ============================================
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  min-width: @container-width;
+  background: @bg-gray-2;
+  .text-no-select();
+
+  &__header {
+    position: sticky;
+    top: 0;
+    z-index: @z-index-dropdown;
+    background: @bg-white;
+    border-bottom: 1px solid @border-light;
+  }
+
+  &__content {
+    width: @container-width;
+    margin: 0 auto;
+    padding: @spacing-xl @spacing-md;
+    .scrollable-y();
+  }
+
+  &__content--full {
+    width: 100%;
+    padding: 0;
+  }
+
+  &__footer {
+    height: @footer-height;
+    .flex-center();
+    background: @bg-white;
+    border-top: 1px solid @border-light;
+    color: @text-tertiary;
+    font-size: @font-size-sm;
+
+    a {
+      color: @text-tertiary;
+      transition: color @transition-fast;
+
+      &:hover {
+        color: @text-primary;
+      }
+    }
+  }
+}

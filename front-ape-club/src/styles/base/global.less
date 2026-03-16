@@ -1,0 +1,34 @@
+// ============================================
+// 全局样式覆盖（Ant Design）
+// ============================================
+
+// 修改 input 高亮问题
+.ant-input-affix-wrapper {
+  &:hover {
+    border-color: @border-base !important;
+  }
+}
+
+.ant-input:focus {
+  box-shadow: none;
+  border-color: @primary-color;
+}
+
+.ant-input:hover {
+  border-color: @border-base;
+}
+
+.ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+  border: 1px solid @border-base;
+}
+
+// 按钮样式覆盖
+.ant-btn-primary {
+  background: @primary-color;
+  border-color: @primary-color;
+
+  &:hover {
+    background: @primary-hover;
+    border-color: @primary-hover;
+  }
+}

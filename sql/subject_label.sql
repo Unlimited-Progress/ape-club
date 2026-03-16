@@ -1,0 +1,2 @@
+INSERT INTO `subject_label` (`id`, `label_name`, `sort_num`, `category_id`, `created_by`, `created_time`, `update_by`, `update_time`, `is_deleted`) VALUES (1, 'Redis', 1, '1', 'oYA4HtwGJEsLio6pGrhx5Hzv9XD0', '2024-02-28 03:21:27', NULL, NULL, 0);
+INSERT INTO `subject_label` (`id`, `label_name`, `sort_num`, `category_id`, `created_by`, `created_time`, `update_by`, `update_time`, `is_deleted`) VALUES (44, '数据一致性', 1, '1', 'oYA4HtwGJEsLio6pGrhx5Hzv9XD0', '2024-02-28 03:21:27', NULL, NULL, 0);

@@ -1,0 +1,13 @@
+server:
+  port: 4000
+
+# 存储服务类型配置 (minio 或 aliyun)
+storage:
+  service:
+    type: minio
+
+# MinIO 配置
+minio:
+  url: http://192.168.200.128:9000
+  accessKey: minioadmin
+  secretKey: minioadmin

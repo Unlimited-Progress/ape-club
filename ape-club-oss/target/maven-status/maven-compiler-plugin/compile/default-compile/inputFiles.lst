@@ -1,0 +1,14 @@
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\adapter\AliStorageAdapter.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\adapter\MinioStorageAdapter.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\adapter\StorageAdapter.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\config\MinioConfig.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\config\StorageConfig.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\constant\OssType.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\controller\FileController.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\entity\FileInfo.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\entity\Result.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\entity\ResultCodeEnum.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\OssApplication.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\service\FileService.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\service\JdOssWapper.java
+D:\IDEA_Workspace\IDEA_Project\ape-club\ape-club-oss\src\main\java\com\jingdianjichi\oss\util\MinioUtil.java

@@ -1,0 +1,38 @@
+// ============================================
+// 视觉效果 Mixins
+// ============================================
+
+// 卡片样式
+.card-base() {
+  background: @bg-white;
+  border: 1px solid @border-light;
+  border-radius: @border-radius-lg;
+  transition: all @transition-base;
+
+  &:hover {
+    border-color: @border-base;
+    box-shadow: @box-shadow-base;
+  }
+}
+
+// 深色卡片
+.card-dark() {
+  background: @bg-dark;
+  border: 1px solid @bg-gray-dark;
+  color: @bg-white;
+
+  &:hover {
+    background: @bg-gray-dark;
+    box-shadow: @box-shadow-md;
+  }
+}
+
+// 按钮重置
+.button-reset() {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+}

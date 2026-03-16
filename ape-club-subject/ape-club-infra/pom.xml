@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ape-club-subject</artifactId>
+        <groupId>com.jingdianjichi</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ape-club-infra</artifactId>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+
+    <dependencies>
+        <!-- jdbcStarter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+        <!-- druid连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.22</version>
+        </dependency>
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.22</version>
+        </dependency>
+        <!-- mybatisplus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jingdianjichi</groupId>
+            <artifactId>ape-club-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jingdianjichi</groupId>
+            <artifactId>ape-club-auth-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+<!--        作用：这是一个 Spring Boot Starter，用于简化与 Elasticsearch 的集成。-->
+<!--        它提供了 Spring Data 的支持，使得你可以使用 Spring Data 的仓库接口来操作 Elasticsearch。-->
+<!--        功能：-->
+<!--        自动配置 Elasticsearch 客户端。-->
+<!--        提供 ElasticsearchOperations 和 ElasticsearchTemplate，用于执行 Elasticsearch 操作。-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+<!--        提供了 Elasticsearch 的核心功能，包括索引管理、搜索、聚合等。-->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>7.5.2</version>
+        </dependency>
+<!--        作用：这是一个低级别的 REST 客户端，用于与 Elasticsearch 进行 HTTP 通信。-->
+<!--        功能：-->
+<!--        提供了发送 HTTP 请求和接收响应的能力。-->
+<!--        适用于需要更细粒度控制的场景，例如自定义请求头、处理复杂的响应等-->
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch.client</groupId>-->
+<!--            <artifactId>elasticsearch-rest-client</artifactId>-->
+<!--            <version>7.5.2</version>-->
+<!--        </dependency>-->
+<!--        作用：这是一个高级别的 REST 客户端，基于 elasticsearch-rest-client 构建，提供了更高级的抽象和更方便的 API。-->
+<!--        功能：-->
+<!--        提供了更高层次的 API，简化了常见的 Elasticsearch 操作，如索引文档、搜索、更新等。-->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.5.2</version>
+        </dependency>
+<!--        提供了丰富的集合操作工具，如 ListUtils、MapUtils、CollectionUtils 等。-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

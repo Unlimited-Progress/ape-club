@@ -1,0 +1,52 @@
+// ============================================
+// Question Bank 组件样式
+// ============================================
+
+.question-bank {
+  .flex-start();
+  gap: @spacing-md;
+  width: 100%;
+  max-width: @container-width;
+  margin: 0 auto;
+
+  &__main {
+    flex: 1;
+    .scrollable-y();
+    border-radius: @border-radius-lg;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__category {
+    padding: @spacing-xl;
+    background: @bg-white;
+    border-top-left-radius: @border-radius-lg;
+    border-top-right-radius: @border-radius-lg;
+    border: 1px solid @border-light;
+  }
+
+  &__list {
+    margin-top: 1px;
+  }
+
+  &__loading {
+    background: @bg-white;
+    text-align: center;
+    padding: @spacing-md 0;
+    color: @text-tertiary;
+    font-size: @font-size-sm;
+    border-bottom-left-radius: @border-radius-lg;
+    border-bottom-right-radius: @border-radius-lg;
+  }
+
+  &__sidebar {
+    width: 310px;
+    .scrollable-y();
+    display: flex;
+    flex-direction: column;
+    gap: @spacing-md;
+  }
+}

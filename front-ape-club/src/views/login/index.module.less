@@ -1,0 +1,44 @@
+// ============================================
+// Login 组件样式
+// ============================================
+
+.login {
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  position: relative;
+  background: linear-gradient(135deg, @bg-dark 0%, @bg-gray-dark 50%, @bg-gray 100%);
+  .flex-center();
+
+  &__container {
+    .flex-between();
+    align-items: center;
+    width: 100%;
+    max-width: 1520px;
+    padding: 0 @spacing-xxxl;
+  }
+
+  &__notes {
+    color: @bg-white;
+    max-width: 400px;
+    line-height: 30px;
+    font-size: @font-size-lg;
+  }
+
+  &__qrcode {
+    width: 400px;
+    background: @bg-white;
+    border-radius: @border-radius-xl;
+    text-align: center;
+    padding: @spacing-xxxl @spacing-xl;
+    box-shadow: @box-shadow-xl;
+    border: 2px solid @border-dark;
+  }
+
+  &__desc {
+    padding: @spacing-lg 0;
+    line-height: 30px;
+    color: @text-primary;
+    font-size: @font-size-base;
+  }
+}

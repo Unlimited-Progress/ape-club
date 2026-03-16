@@ -1,0 +1,92 @@
+// ============================================
+// Personal Center 组件样式
+// ============================================
+
+.personal-center {
+  margin: 0 auto;
+  width: @container-width;
+  border-radius: @border-radius-base;
+  .scrollable-y();
+
+  &__intro {
+    background: @bg-white;
+    border-radius: @border-radius-lg;
+    height: 100px;
+    margin-bottom: @spacing-sm;
+    .flex-between();
+    padding: 0 @spacing-xxxl;
+    border: 1px solid @border-light;
+  }
+
+  &__intro-detail {
+    .flex-start();
+  }
+
+  &__avatar {
+    margin-right: @spacing-lg;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: @spacing-md;
+  }
+
+  &__name {
+    color: @primary-color;
+    font-weight: @font-weight-semibold;
+    font-size: @font-size-lg;
+  }
+
+  &__info {
+    display: flex;
+    gap: @spacing-md;
+    color: @text-tertiary;
+    font-size: @font-size-sm;
+  }
+
+  &__result {
+    .flex-center();
+    gap: @spacing-xl;
+  }
+
+  &__result-item {
+    text-align: center;
+    padding: 0 @spacing-sm;
+  }
+
+  &__result-number {
+    font-weight: @font-weight-semibold;
+    color: @primary-color;
+    font-size: @font-size-xl;
+  }
+
+  &__result-label {
+    color: @text-tertiary;
+    font-size: @font-size-sm;
+    margin-top: @spacing-xs;
+  }
+
+  &__content {
+    display: flex;
+    align-items: flex-start;
+    gap: @spacing-sm;
+  }
+
+  &__left {
+    background: @bg-white;
+    .scrollable-y();
+    border-radius: @border-radius-lg;
+    width: 300px;
+    min-height: 320px;
+    border: 1px solid @border-light;
+  }
+
+  &__right {
+    background: @bg-white;
+    flex: 1;
+    .scrollable-y();
+    border-radius: @border-radius-lg;
+    border: 1px solid @border-light;
+  }
+}

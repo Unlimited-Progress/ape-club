@@ -1,0 +1,68 @@
+// ============================================
+// Header 组件样式
+// ============================================
+
+.header {
+  width: 100%;
+  height: @header-height;
+  background: @bg-white;
+  border-bottom: 1px solid @border-light;
+
+  &__container {
+    .flex-between();
+    width: @container-width-lg;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 @spacing-lg;
+  }
+
+  &__left {
+    .flex-start();
+    gap: @spacing-xl;
+  }
+
+  &__logo {
+    cursor: pointer;
+
+    img {
+      height: 50px;
+      display: block;
+    }
+  }
+
+  &__right {
+    .flex-center();
+    gap: @spacing-lg;
+  }
+
+  &__search {
+    .ant-input {
+      border-radius: @border-radius-xl;
+      border-color: @border-base;
+
+      &:hover {
+        border-color: @primary-color;
+      }
+    }
+  }
+
+  &__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: @border-radius-circle;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: @box-shadow-sm;
+    transition: box-shadow @transition-fast;
+
+    &:hover {
+      box-shadow: @box-shadow-base;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

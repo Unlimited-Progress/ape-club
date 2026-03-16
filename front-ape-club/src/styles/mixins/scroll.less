@@ -1,0 +1,38 @@
+// ============================================
+// 滚动 Mixins
+// ============================================
+
+// 自定义滚动条
+.scrollbar(@width: 6px, @thumb-color: @bg-gray-5, @track-color: transparent) {
+  &::-webkit-scrollbar {
+    width: @width;
+    height: @width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: @track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: @thumb-color;
+    border-radius: @width / 2;
+    transition: background @transition-fast;
+
+    &:hover {
+      background: @bg-gray-light;
+    }
+  }
+}
+
+// 滚动容器
+.scrollable-y() {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  .scrollbar();
+}
+
+.scrollable-x() {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  .scrollbar();
+}

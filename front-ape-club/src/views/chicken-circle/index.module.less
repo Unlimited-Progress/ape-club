@@ -1,0 +1,142 @@
+// ============================================
+// Circle 组件样式
+// ============================================
+
+.circle {
+  height: 100%;
+  .scrollable-y();
+
+  &__input-card {
+    padding: @spacing-sm @spacing-md;
+    background: @bg-gray-2;
+    transition: all @transition-base;
+    border-radius: @border-radius-lg;
+    border: 2px solid transparent;
+
+    textarea {
+      background: @bg-gray-2 !important;
+      outline: none !important;
+      border: none !important;
+      box-shadow: none;
+      color: @text-primary;
+    }
+
+    &--focus {
+      border-color: @primary-color;
+      background: @bg-white;
+
+      textarea {
+        background: @bg-white !important;
+      }
+
+      .circle__choose-circle {
+        background: @primary-light;
+      }
+    }
+  }
+
+  &__choose-circle {
+    color: @primary-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: @font-size-xs;
+    padding: 4px 10px 2px;
+    background: @bg-white;
+    border-radius: 14px 14px 14px 0;
+    transition: all @transition-fast;
+
+    &:hover {
+      background: @primary-light;
+    }
+  }
+
+  &__publish-options {
+    .flex-between();
+    margin-top: @spacing-lg;
+  }
+
+  &__left-box {
+    display: flex;
+    gap: @spacing-lg;
+
+    div {
+      cursor: pointer;
+      color: @text-tertiary;
+      transition: color @transition-fast;
+
+      &:hover {
+        color: @primary-color;
+      }
+    }
+  }
+
+  &__img-list {
+    margin-left: 48px;
+    margin-top: @spacing-lg;
+    width: 390px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: @spacing-sm;
+
+    img {
+      cursor: pointer;
+      border-radius: @border-radius-base;
+      transition: transform @transition-fast;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid @border-light;
+    border-bottom: 1px solid @border-light;
+    margin-top: @spacing-lg;
+  }
+
+  &__footer-item {
+    flex: 1;
+    padding: @spacing-sm 0;
+    text-align: center;
+    cursor: pointer;
+    color: @text-tertiary;
+    transition: all @transition-fast;
+
+    &:hover {
+      color: @primary-color;
+      background: @bg-gray-1;
+    }
+  }
+}
+
+// 弹出内容样式
+.pop-content {
+  &__item {
+    .flex-start();
+    cursor: pointer;
+    padding: @spacing-sm 0;
+    transition: background @transition-fast;
+
+    &:hover {
+      background: @bg-gray-2;
+    }
+  }
+
+  &__item-img {
+    width: 48px;
+    height: 48px;
+    border-radius: @border-radius-lg;
+    margin-right: @spacing-lg;
+    object-fit: cover;
+  }
+
+  &__item-name {
+    padding-right: @spacing-xxl;
+    color: @text-primary;
+    font-size: @font-size-base;
+  }
+}

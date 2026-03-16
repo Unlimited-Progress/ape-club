@@ -1,0 +1,88 @@
+// ============================================
+// Brush Questions 组件样式
+// ============================================
+
+.brush-questions {
+  width: @container-width;
+  margin: 0 auto;
+  background: @bg-white;
+  padding: @spacing-lg @spacing-xxxl;
+  border-radius: @border-radius-base;
+  .scrollable-y();
+  border: 1px solid @border-light;
+
+  &__header {
+    display: flex;
+    margin-bottom: @spacing-lg;
+  }
+
+  &__type {
+    color: @primary-color;
+    font-size: @font-size-lg;
+    flex: 1;
+  }
+
+  &__number {
+    color: @primary-color;
+    font-size: @font-size-lg;
+    font-weight: @font-weight-semibold;
+    text-align: right;
+  }
+
+  &__content {
+    .flex-start();
+    font-size: @font-size-lg;
+    line-height: 35px;
+    margin-top: @spacing-xxxl;
+    margin-bottom: @spacing-sm;
+  }
+
+  &__difficulty {
+    margin-right: @spacing-sm;
+    padding: 0 @spacing-sm;
+    border-radius: @border-radius-base;
+    background: @grade-1;
+    color: @text-primary;
+  }
+
+  &__reference {
+    color: @grade-4;
+    font-size: @font-size-sm;
+    padding: @spacing-lg 0 @spacing-sm 0;
+  }
+
+  &__answer {
+    background: @primary-lighter;
+    padding: @spacing-md 0 @spacing-md @spacing-xl;
+    font-size: @font-size-sm;
+    line-height: 35px;
+    border-radius: @border-radius-md;
+    margin-bottom: @spacing-xs;
+    max-height: 500px;
+    .scrollable-y();
+  }
+
+  &__divider {
+    border-top: 1px dashed @border-light;
+    border-bottom: 1px dashed @border-light;
+    padding: @spacing-md 0;
+  }
+
+  &__actions {
+    .flex-end();
+    margin: @spacing-sm 0;
+    gap: @spacing-lg;
+  }
+
+  &__btn {
+    width: 110px;
+    height: 46px;
+    font-size: @font-size-lg;
+    cursor: pointer;
+    transition: all @transition-base;
+
+    &:active {
+      background: @primary-color !important;
+    }
+  }
+}
