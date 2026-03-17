@@ -4,6 +4,8 @@ import com.jingdianjichi.auth.infra.basic.entity.AuthUserRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (AuthUserRole)表服务接口
  *
@@ -19,6 +21,14 @@ public interface AuthUserRoleService {
      * @return 实例对象
      */
     AuthUserRole queryById(Long id);
+
+    /**
+     * 根据条件查询
+     *
+     * @param authUserRole 查询条件
+     * @return 对象列表
+     */
+    List<AuthUserRole> queryByCondition(AuthUserRole authUserRole);
 
     /**
      * 新增数据

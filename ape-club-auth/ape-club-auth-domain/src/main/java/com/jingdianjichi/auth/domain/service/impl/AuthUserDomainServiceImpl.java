@@ -32,6 +32,7 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,24 +105,7 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         authUserRole.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
         authUserRoleService.insert(authUserRole);
 
-
-//        redisUtil来建立唯一标识
-        String roleKey = redisUtil.buildKey(authRolePrefix, authUser.getUserName());
-        List<AuthRole> roleList = new LinkedList<>();
-        roleList.add(authRole);
-        redisUtil.set(roleKey, new Gson().toJson(roleList));
-
-        AuthRolePermission authRolePermission = new AuthRolePermission();
-        authRolePermission.setRoleId(roleId);
-        List<AuthRolePermission> rolePermissionList = authRolePermissionService.
-                queryByCondition(authRolePermission);
-
-        List<Long> permissionIdList = rolePermissionList.stream()
-                .map(AuthRolePermission::getPermissionId).collect(Collectors.toList());
-        //根据roleId查权限
-        List<AuthPermission> permissionList = authPermissionService.queryByRoleList(permissionIdList);
-        String permissionKey = redisUtil.buildKey(authPermissionPrefix, authUser.getUserName());
-        redisUtil.set(permissionKey, new Gson().toJson(permissionList));
+        refreshUserAuthCache(authUser);
 
         return count > 0;
     }
@@ -153,6 +137,13 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         AuthUserBO authUserBO = new AuthUserBO();
         authUserBO.setUserName(openId);
         this.register(authUserBO);
+        AuthUser authUser = new AuthUser();
+        authUser.setUserName(openId);
+        List<AuthUser> userList = authUserService.queryByCondition(authUser);
+        if (CollectionUtils.isEmpty(userList)) {
+            return null;
+        }
+        refreshUserAuthCache(userList.get(0));
         StpUtil.login(openId);
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         return tokenInfo;
@@ -177,6 +168,67 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
             return Collections.emptyList();
         }
         return AuthUserBOConverter.INSTANCE.convertEntityToBO(userList);
+    }
+
+    private void refreshUserAuthCache(AuthUser authUser) {
+        String roleKey = redisUtil.buildKey(authRolePrefix, authUser.getUserName());
+        String permissionKey = redisUtil.buildKey(authPermissionPrefix, authUser.getUserName());
+
+        AuthUserRole authUserRoleQuery = new AuthUserRole();
+        authUserRoleQuery.setUserId(authUser.getId());
+        authUserRoleQuery.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
+        List<AuthUserRole> authUserRoleList = authUserRoleService.queryByCondition(authUserRoleQuery);
+        if (CollectionUtils.isEmpty(authUserRoleList)) {
+            redisUtil.set(roleKey, new Gson().toJson(Collections.emptyList()));
+            redisUtil.set(permissionKey, new Gson().toJson(Collections.emptyList()));
+            return;
+        }
+
+        List<Long> roleIdList = authUserRoleList.stream()
+                .map(AuthUserRole::getRoleId)
+                .filter(Objects::nonNull)
+                .distinct()
+                .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(roleIdList)) {
+            redisUtil.set(roleKey, new Gson().toJson(Collections.emptyList()));
+            redisUtil.set(permissionKey, new Gson().toJson(Collections.emptyList()));
+            return;
+        }
+
+        List<AuthRole> roleList = authRoleService.queryByRoleList(roleIdList);
+        List<String> roleKeyList = CollectionUtils.isEmpty(roleList) ? Collections.emptyList() : roleList.stream()
+                .map(AuthRole::getRoleKey)
+                .filter(StringUtils::isNotBlank)
+                .distinct()
+                .collect(Collectors.toList());
+        redisUtil.set(roleKey, new Gson().toJson(roleKeyList));
+
+        List<Long> permissionIdList = new LinkedList<>();
+        roleIdList.forEach(roleId -> {
+            AuthRolePermission authRolePermission = new AuthRolePermission();
+            authRolePermission.setRoleId(roleId);
+            authRolePermission.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
+            List<AuthRolePermission> rolePermissionList = authRolePermissionService.queryByCondition(authRolePermission);
+            if (!CollectionUtils.isEmpty(rolePermissionList)) {
+                permissionIdList.addAll(rolePermissionList.stream()
+                        .map(AuthRolePermission::getPermissionId)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList()));
+            }
+        });
+
+        if (CollectionUtils.isEmpty(permissionIdList)) {
+            redisUtil.set(permissionKey, new Gson().toJson(Collections.emptyList()));
+            return;
+        }
+
+        List<AuthPermission> permissionList = authPermissionService.queryByRoleList(permissionIdList.stream().distinct().collect(Collectors.toList()));
+        List<String> permissionKeyList = CollectionUtils.isEmpty(permissionList) ? Collections.emptyList() : permissionList.stream()
+                .map(AuthPermission::getPermissionKey)
+                .filter(StringUtils::isNotBlank)
+                .distinct()
+                .collect(Collectors.toList());
+        redisUtil.set(permissionKey, new Gson().toJson(permissionKeyList));
     }
 
 }

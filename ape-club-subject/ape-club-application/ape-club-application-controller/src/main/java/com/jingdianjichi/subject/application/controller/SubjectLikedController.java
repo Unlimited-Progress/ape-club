@@ -10,6 +10,7 @@ import com.jingdianjichi.subject.common.util.LoginUtil;
 import com.jingdianjichi.subject.domain.entity.SubjectLikedBO;
 import com.jingdianjichi.subject.domain.service.SubjectLikedDomainService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class SubjectLikedController {
             Preconditions.checkNotNull(subjectLikedDTO.getStatus(), "点赞状态不能为空");
             String loginId = LoginUtil.getLoginId();
             subjectLikedDTO.setLikeUserId(loginId);
-            Preconditions.checkNotNull(subjectLikedDTO.getLikeUserId(), "点赞人不能为空");
+            Preconditions.checkArgument(StringUtils.isNotBlank(subjectLikedDTO.getLikeUserId()), "请先登录");
             SubjectLikedBO SubjectLikedBO = SubjectLikedDTOConverter.INSTANCE.convertDTOToBO(subjectLikedDTO);
             subjectLikedDomainService.add(SubjectLikedBO);
             return Result.ok(true);

@@ -62,4 +62,12 @@ public class CacheUtil<K,V> {
         return new HashMap<>();
     }
 
+    public void invalidate(String cacheKey) {
+        localCache.invalidate(cacheKey);
+    }
+
+    public void invalidateAll() {
+        localCache.invalidateAll();
+    }
+
 }

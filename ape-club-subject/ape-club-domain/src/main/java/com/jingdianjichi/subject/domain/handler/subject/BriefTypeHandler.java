@@ -39,7 +39,9 @@ public class BriefTypeHandler implements SubjectTypeHandler{
         subjectBrief.setSubjectId(subjectId);
         SubjectBrief result = subjectBriefService.queryByCondition(subjectBrief);
         SubjectOptionBO subjectOptionBO = new SubjectOptionBO();
-        BeanUtils.copyProperties(subjectOptionBO,result);
+        if (result != null) {
+            BeanUtils.copyProperties(result, subjectOptionBO);
+        }
 
         return subjectOptionBO;
     }

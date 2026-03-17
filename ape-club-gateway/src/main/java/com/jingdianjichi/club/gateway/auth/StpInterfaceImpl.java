@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Collections;
-
 import java.util.List;
-
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 自定义权限验证接口扩展
@@ -106,9 +106,27 @@ public class StpInterfaceImpl implements StpInterface {
             return Collections.emptyList();
         }
 
-        // 使用Gson库将JSON字符串转换为Java列表对象
-        // Redis中存储的格式通常是：["permission1", "permission2", "permission3"]
-        List<String> authList = new Gson().fromJson(authValue, List.class);
-        return authList;
+        List<Object> authList = new Gson().fromJson(authValue, List.class);
+        if (authList == null || authList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        String keyName = authPermissionPrefix.equals(prefix) ? "permissionKey" : "roleKey";
+        return authList.stream()
+                .map(item -> extractAuthValue(item, keyName))
+                .filter(value -> !StringUtils.isBlank(value))
+                .collect(Collectors.toList());
+    }
+
+    private String extractAuthValue(Object authObj, String keyName) {
+        if (authObj instanceof String) {
+            return authObj.toString();
+        }
+        if (authObj instanceof Map) {
+            Object authValue = ((Map<?, ?>) authObj).get(keyName);
+            if (authValue != null) {
+                return authValue.toString();
+            }
+        }
+        return null;
     }
 }

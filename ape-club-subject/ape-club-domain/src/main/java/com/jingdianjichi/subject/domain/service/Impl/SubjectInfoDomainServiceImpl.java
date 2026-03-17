@@ -84,6 +84,7 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         SubjectInfo subjectInfo = SubjectInfoConverter.INSTANCE.convertBoToInfo(subjectInfoBO);
         subjectInfo.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
         subjectInfoService.insert(subjectInfo);
+        subjectInfoBO.setId(subjectInfo.getId());
 
         SubjectTypeHandler handler = subjectTypeHandlerFactory.getHandler(subjectInfo.getSubjectType());
         handler.add(subjectInfoBO);
@@ -231,7 +232,11 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
             subjectInfoBO.setSubjectCount(rank.getScore().intValue());
 //            getValue()：这个方法返回有序集合中的成员值，返回类型是 String。在这个上下文中，成员值通常是用户的唯一标识符（ID）
             UserInfo userInfo = userRpc.getUserInfo(rank.getValue());
-            subjectInfoBO.setCreateUser(userInfo.getUserName());
+            String displayName = userInfo.getNickName();
+            if (displayName == null || displayName.trim().isEmpty()) {
+                displayName = userInfo.getUserName();
+            }
+            subjectInfoBO.setCreateUser(displayName);
             subjectInfoBO.setCreateUserAvatar(userInfo.getAvatar());
             boList.add(subjectInfoBO);
         });

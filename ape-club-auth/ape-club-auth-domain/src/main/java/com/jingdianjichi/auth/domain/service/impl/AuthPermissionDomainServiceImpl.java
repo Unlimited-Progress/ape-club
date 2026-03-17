@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,11 +67,29 @@ public class AuthPermissionDomainServiceImpl implements AuthPermissionDomainServ
         if (StringUtils.isBlank(permissionValue)) {
             return Collections.emptyList();
         }
-        List<AuthPermission> permissionList = new Gson().fromJson(permissionValue,
-                new TypeToken<List<AuthPermission>>() {
+        List<Object> permissionList = new Gson().fromJson(permissionValue,
+                new TypeToken<List<Object>>() {
                 }.getType());
-        List<String> authList = permissionList.stream().map(AuthPermission::getPermissionKey).collect(Collectors.toList());
-        return authList;
+        if (permissionList == null) {
+            return Collections.emptyList();
+        }
+        return permissionList.stream()
+                .map(this::extractPermissionKey)
+                .filter(StringUtils::isNotBlank)
+                .collect(Collectors.toList());
+    }
+
+    private String extractPermissionKey(Object permissionObj) {
+        if (permissionObj instanceof String) {
+            return permissionObj.toString();
+        }
+        if (permissionObj instanceof Map) {
+            Object permissionKey = ((Map<?, ?>) permissionObj).get("permissionKey");
+            if (permissionKey != null) {
+                return permissionKey.toString();
+            }
+        }
+        return null;
     }
 
 }

@@ -78,8 +78,10 @@ public class PracticeSetServiceImpl implements PracticeSetService {
         poList.forEach(primaryCategoryPO -> {
             SpecialPracticeVO specialPracticeVO = new SpecialPracticeVO();
             specialPracticeVO.setPrimaryCategoryId(primaryCategoryPO.getParentId());
-            CategoryPO categoryPO = subjectCategoryDao.selectById(primaryCategoryPO.getId());
-
+            CategoryPO categoryPO = subjectCategoryDao.selectById(primaryCategoryPO.getParentId());
+            if (Objects.isNull(categoryPO)) {
+                return;
+            }
             specialPracticeVO.setPrimaryCategoryName(categoryPO.getCategoryName());
             CategoryDTO categoryDTOTemp = new CategoryDTO();
             categoryDTOTemp.setCategoryType(2);

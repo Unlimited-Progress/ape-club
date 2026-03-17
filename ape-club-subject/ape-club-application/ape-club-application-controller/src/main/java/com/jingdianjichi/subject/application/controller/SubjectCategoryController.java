@@ -136,6 +136,26 @@ public class SubjectCategoryController {
     }
 
     /**
+     * 移动二级分类到新的一级分类
+     */
+    @PostMapping("/move")
+    public Result<Boolean> move(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("SubjectCategoryController.move.dto:{}", JSON.toJSONString(subjectCategoryDTO));
+            }
+            Preconditions.checkNotNull(subjectCategoryDTO.getId(), "分类id不能为空");
+            Preconditions.checkNotNull(subjectCategoryDTO.getParentId(), "目标一级分类不能为空");
+            SubjectCategoryBO subjectCategoryBO = SubjectCategoryDTOConverter.INSTANCE.convertDtoToCategoryBO(subjectCategoryDTO);
+            Boolean result = subjectCategoryDomainService.move(subjectCategoryBO);
+            return Result.ok(result);
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.move.error:{}", e.getMessage(), e);
+            return Result.fail("移动分类失败");
+        }
+    }
+
+    /**
      * 查询分类标签及一致性
      */
     @PostMapping("/queryCategoryAndLabel")

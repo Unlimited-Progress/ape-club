@@ -129,12 +129,12 @@
 
 
     <select id="querySubjectCountById" resultType="java.lang.Integer" parameterType="java.lang.Long">
-        select count(distinct subject_id)
-        from subject_mapping a,
-             subject_label b
-        where a.label_id = b.id
-          and b.category_id = #{id}
-
+        select count(distinct a.subject_id)
+        from subject_mapping a
+                 join subject_category b on a.category_id = b.id
+        where a.is_deleted = 0
+          and b.is_deleted = 0
+          and (b.id = #{id} or b.parent_id = #{id})
     </select>
 
     <!--新增所有列-->

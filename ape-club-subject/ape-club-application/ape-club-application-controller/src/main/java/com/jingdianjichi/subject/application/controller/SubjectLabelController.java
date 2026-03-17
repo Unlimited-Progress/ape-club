@@ -42,6 +42,7 @@ public class SubjectLabelController {
             }
             Preconditions.checkArgument(!StringUtils.isBlank(subjectLabelDTO.getLabelName()),
                     "标签名称不能为空");
+            Preconditions.checkNotNull(subjectLabelDTO.getCategoryId(), "二级分类不能为空");
             SubjectLabelBO subjectLabelBO = SubjectLabelDTOConverter.INSTANCE.convertDtoToLabelBO(subjectLabelDTO);
             Boolean result = subjectLabelDomainService.add(subjectLabelBO);
             return Result.ok(result);

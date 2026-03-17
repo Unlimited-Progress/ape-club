@@ -14,7 +14,7 @@ import java.util.List;
  * @author: ChickenWing
  * @date: 2023/12/3
  */
-@FeignClient("jc-club-auth-dev")
+@FeignClient("ape-club-auth-dev")
 public interface UserFeignService {
 
     @RequestMapping("/user/getUserInfo")
