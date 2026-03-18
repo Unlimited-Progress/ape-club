@@ -2,6 +2,7 @@ package com.jingdianjichi.oss.controller;
 
 import com.jingdianjichi.oss.entity.Result;
 import com.jingdianjichi.oss.service.FileService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,16 @@ public class FileController {
      */
     @RequestMapping("/upload")
     public Result upload(MultipartFile uploadFile, String bucket, String objectName) throws Exception {
+        if (uploadFile == null || uploadFile.isEmpty()) {
+            Result result = Result.fail();
+            result.setMessage("上传文件不能为空");
+            return result;
+        }
+        if (StringUtils.isBlank(bucket)) {
+            Result result = Result.fail();
+            result.setMessage("bucket不能为空");
+            return result;
+        }
         String url = fileService.uploadFile(uploadFile, bucket, objectName);
         return Result.ok(url);
     }

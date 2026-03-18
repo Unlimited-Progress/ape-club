@@ -22,6 +22,7 @@
         <module name="ape-club-common" />
         <module name="jc-club-wx" />
         <module name="jc-club-gateway" />
+        <module name="ape-club-gen" />
         <module name="jc-club-domain" />
         <module name="jc-club-auth-domain" />
         <module name="ape-club-infra" />
@@ -29,7 +30,6 @@
         <module name="jc-club-application-job" />
         <module name="ape-club-circle-server" />
         <module name="ape-club-practice-server" />
-        <module name="jc-club-gen" />
         <module name="ape-club-practice-api" />
         <module name="ape-club-application-controller" />
         <module name="easy-gen-code-spring-boot-starter" />
@@ -48,12 +48,14 @@
         <module name="jc-club-auth-infra" />
         <module name="ape-club-auth-api" />
         <module name="ape-club-auth-domain" />
+        <module name="ape-club-interview-server" />
         <module name="jc-club-auth-starter" />
         <module name="ape-club-domain" />
         <module name="jc-club-subject-api" />
         <module name="ape-club-wx" />
         <module name="ape-club-starter" />
         <module name="jc-club-circle-api" />
+        <module name="ape-club-interview-api" />
         <module name="ape-club-oss" />
         <module name="jc-club-oss" />
         <module name="jc-application-job" />
@@ -65,7 +67,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="jc-club-gen" options="-parameters" />
+      <module name="ape-club-gen" options="-parameters" />
     </option>
   </component>
 </project>

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ape-club.iml" filepath="$PROJECT_DIR$/.idea/ape-club.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ape-club-interview/ape-club-interview-server/ape-club-interview-server.iml" filepath="$PROJECT_DIR$/ape-club-interview/ape-club-interview-server/ape-club-interview-server.iml" />
     </modules>
   </component>
 </project>

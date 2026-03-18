@@ -374,7 +374,7 @@ spring:
           filters:
             - StripPrefix=1
         - id: interview
-          uri: lb://jc-club-interview
+          uri: lb://ape-club-interview
           predicates:
             - Path=/interview/**
           filters:

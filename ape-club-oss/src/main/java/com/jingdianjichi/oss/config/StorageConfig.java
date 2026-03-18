@@ -4,6 +4,7 @@ import com.jingdianjichi.oss.adapter.StorageAdapter;
 import com.jingdianjichi.oss.adapter.AliStorageAdapter;
 import com.jingdianjichi.oss.adapter.MinioStorageAdapter;
 import com.jingdianjichi.oss.constant.OssType;
+import com.jingdianjichi.oss.util.MinioUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -32,6 +33,9 @@ public class StorageConfig {
     @Value("${storage.service.type}")
     private String storageType;
 
+    @Value("${minio.url:}")
+    private String minioUrl;
+
     @Bean
     @RefreshScope
         /*功能介绍：
@@ -40,9 +44,9 @@ public class StorageConfig {
     使用场景：
     当使用@Value注解获取配置属性值时，通过添加@RefreshScope注解，
     可以在配置属性发生变化时，通过发送POST请求到/actuator/refresh端点来刷新配置，从而实现配置属性的动态更新。*/
-    public StorageAdapter storageService() {
+    public StorageAdapter storageService(MinioUtil minioUtil) {
         if (OssType.MINIO.equals(storageType)) {
-            return new MinioStorageAdapter();
+            return new MinioStorageAdapter(minioUtil, minioUrl);
         } else if (OssType.ALI_OSS.equals(storageType)) {
             return new AliStorageAdapter();
         } else {

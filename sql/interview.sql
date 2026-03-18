@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS `interview_history` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `engine_type` varchar(32) DEFAULT NULL COMMENT '面试引擎类型，如 JI_CHI/ALI_BL',
+    `avg_score` double DEFAULT NULL COMMENT '平均分',
+    `avg_tip` varchar(255) DEFAULT NULL COMMENT '平均分结论',
+    `key_words` varchar(1024) DEFAULT NULL COMMENT '面试关键字',
+    `tip` varchar(1024) DEFAULT NULL COMMENT '面试评价',
+    `interview_url` varchar(256) DEFAULT NULL COMMENT '简历地址',
+    `question_count` int(11) DEFAULT NULL COMMENT '本次面试题目数量',
+    `created_by` varchar(32) DEFAULT NULL COMMENT '创建人',
+    `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `is_deleted` int(11) DEFAULT '0' COMMENT '是否被删除 0未删除 1已删除',
+    PRIMARY KEY (`id`),
+    KEY `idx_created_by` (`created_by`),
+    KEY `idx_engine_type` (`engine_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='面试汇总记录表';
+
+CREATE TABLE IF NOT EXISTS `interview_question_history` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `interview_id` bigint(20) NOT NULL COMMENT '面试场次ID',
+    `question_order` int(11) DEFAULT NULL COMMENT '题目顺序',
+    `engine_type` varchar(32) DEFAULT NULL COMMENT '题目来源引擎',
+    `label_name` varchar(128) DEFAULT NULL COMMENT '标签名称',
+    `score` double DEFAULT NULL COMMENT '最终得分',
+    `key_words` varchar(1024) DEFAULT NULL COMMENT '面试关键字',
+    `question` text DEFAULT NULL COMMENT '问题',
+    `answer` text DEFAULT NULL COMMENT '答案',
+    `user_answer` text DEFAULT NULL COMMENT '用户答案',
+    `created_by` varchar(32) DEFAULT NULL COMMENT '创建人',
+    `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `is_deleted` int(11) DEFAULT '0' COMMENT '是否被删除 0未删除 1已删除',
+    PRIMARY KEY (`id`),
+    KEY `idx_interview_id` (`interview_id`),
+    KEY `idx_created_by` (`created_by`),
+    KEY `idx_label_name` (`label_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='面试题目记录表';
